@@ -4,10 +4,9 @@
  * @Description: tour-cli命令入口
  * @Author: tourist17846
  * @Date: 2021-03-14 23:35:15
- * @LastEditTime: 2021-03-15 23:13:16
+ * @LastEditTime: 2021-03-16 23:51:53
  */
 
-'use strict';
-console.log('hello,world')
+import { colorCli } from '../utils';
 
-
+colorCli['green']('test', true);

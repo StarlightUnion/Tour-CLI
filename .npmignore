@@ -1,2 +1,4 @@
-bin/
-src/
+bin
+src
+utils
+node_modules

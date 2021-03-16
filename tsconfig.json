@@ -6,14 +6,17 @@
     "removeComments": true,
     "declaration": true,
     "noEmitOnError": true,
+    "suppressImplicitAnyIndexErrors": true,
     "outDir": "./dist"
   },
   "include": [
     "./bin/**/*",
-    "./src/**/*"
+    "./src/**/*",
+    "./utils/**/*"
   ],
   "exclude": [
     "node_modules",
-    "**/*.json"
+    "**/*.json",
+    "templates"
   ]
 }

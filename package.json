@@ -9,6 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
+    "dev": "npm run build && yarn link",
     "watch": "tsc --watch"
   },
   "repository": {
@@ -26,5 +27,8 @@
     "@typescript-eslint/parser": "^4.17.0",
     "eslint": "^7.22.0",
     "typescript": "^4.2.3"
+  },
+  "dependencies": {
+    "chalk": "^4.1.0"
   }
 }
