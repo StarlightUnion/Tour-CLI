@@ -1,0 +1,30 @@
+{
+  "name": "tust-cli",
+  "version": "0.0.1",
+  "description": "tust-cli",
+  "main": "index.js",
+  "bin": {
+    "tust-cli": "./dist/bin/cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StarlightUnion/Tour-CLI.git"
+  },
+  "author": "tourist17846",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/StarlightUnion/Tour-CLI/issues"
+  },
+  "homepage": "https://github.com/StarlightUnion/Tour-CLI#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.17.0",
+    "@typescript-eslint/parser": "^4.17.0",
+    "eslint": "^7.22.0",
+    "typescript": "^4.2.3"
+  }
+}
