@@ -1,6 +1,6 @@
 {
   "name": "tust-cli",
-  "version": "0.0.1",
+  "version": "0.0.3-beta",
   "description": "tust-cli",
   "main": "index.js",
   "bin": {
@@ -10,7 +10,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "dev": "npm run build && yarn link",
-    "watch": "tsc --watch"
+    "watch": "tsc --watch",
+    "adduser": "npm adduser --registry http://registry.npmjs.org",
+    "publish": "npm publish --registry http://registry.npmjs.org"
   },
   "repository": {
     "type": "git",

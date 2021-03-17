@@ -1,4 +1,4 @@
-bin
-src
-utils
+bin/
+src/
+utils/
 node_modules
