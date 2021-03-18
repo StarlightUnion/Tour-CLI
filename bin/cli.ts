@@ -4,7 +4,7 @@
  * @Description: tour-cli命令入口
  * @Author: tourist17846
  * @Date: 2021-03-14 23:35:15
- * @LastEditTime: 2021-03-17 23:11:07
+ * @LastEditTime: 2021-03-18 09:14:45
  */
 
 import * as fs from 'fs';

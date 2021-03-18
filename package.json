@@ -9,8 +9,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "dev": "npm run build && yarn link",
+    "dev": "npm run unlink && npm run build && npm run link",
     "watch": "tsc --watch",
+    "link": "yarn link tust-cli",
+    "unlink": "yarn unlink tust-cli",
+    "reinstall": "yarn install --force",
     "adduser": "npm adduser --registry http://registry.npmjs.org",
     "publish": "npm publish --registry http://registry.npmjs.org"
   },
