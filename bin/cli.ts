@@ -4,12 +4,12 @@
  * @Description: tour-cli命令入口
  * @Author: tourist17846
  * @Date: 2021-03-14 23:35:15
- * @LastEditTime: 2021-03-18 09:14:45
+ * @LastEditTime: 2021-04-26 16:58:17
  */
 
 import * as fs from 'fs';
 import * as commander from 'commander';
-import { colorCli } from '../utils';
+import { colorCli, createQuestions } from '../utils';
 
 
 const { green } = colorCli;
@@ -19,9 +19,16 @@ const version: string = JSON.parse(readFileSync('package.json', 'utf-8')).versio
 // create
 commander
   .command('create')
-  .description('创建一个项目')
+  .description('创建一个新项目')
   .action(() => {
-    green('--创建项目--');
+    green('创建项目：');
+
+    // questions
+    createQuestions()
+      .then(res => {
+        // if (res.start) {}
+        console.log(res);
+      })
   });
 
 // start
@@ -29,7 +36,7 @@ commander
   .command('start')
   .description('启动项目')
   .action(() => {
-    green('--启动项目--');
+    green('启动项目：');
   });
 
 // build
@@ -37,7 +44,7 @@ commander
   .command('build')
   .description('打包项目')
   .action(() => {
-    green('--打包项目--');
+    green('打包项目：');
   });
 
 // version -v

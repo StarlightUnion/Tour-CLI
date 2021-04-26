@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "dev": "npm run unlink && npm run build && npm run link",
+    "dev": "npm run unlink && npm run watch && npm run link",
     "watch": "tsc --watch",
     "link": "yarn link tust-cli",
     "unlink": "yarn unlink tust-cli",
@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "chalk": "^4.1.0",
-    "commander": "^7.1.0"
+    "commander": "^7.1.0",
+    "inquirer": "^8.0.0"
   }
 }
