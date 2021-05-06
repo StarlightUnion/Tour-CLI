@@ -2,10 +2,11 @@
  * @Description: 命令行交互
  * @Author: tourist17846
  * @Date: 2021-04-26 16:14:40
- * @LastEditTime: 2021-04-26 17:18:35
+ * @LastEditTime: 2021-04-26 23:55:30
  */
 
 import * as inquirer from 'inquirer';
+import utils from './utils';
 
 
 interface result {
@@ -20,7 +21,7 @@ const questions = [
   {
     name: 'start',
     type: 'confirm',
-    message: '请确认创建一个新项目'
+    message: '是否创建一个新项目'
   }, {
     name: 'name',
     type: 'input',
@@ -31,7 +32,7 @@ const questions = [
     name: 'author',
     type: 'input',
     message: '请输入作者',
-    default: 'test',
+    default: utils.getInfoFromExecSync('git config user.name'),
     when: (res: result): boolean => Boolean(res.start)
   }, {
     name: 'type',
@@ -43,7 +44,7 @@ const questions = [
   }, {
     name: 'ts',
     type: 'confirm',
-    message: '请确认是否使用TypeScript',
+    message: '是否使用TypeScript',
     when: (res: result): boolean => Boolean(res.start)
   }
 ]
@@ -51,7 +52,7 @@ const questions = [
 function createQuestions(): Promise<result> {
   return new Promise((resolve) => {
     inquirer.prompt(questions)
-      .then(res => resolve(res));
+      .then((res: result) => resolve(res));
   });
 }
 

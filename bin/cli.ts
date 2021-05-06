@@ -4,7 +4,7 @@
  * @Description: tour-cli命令入口
  * @Author: tourist17846
  * @Date: 2021-03-14 23:35:15
- * @LastEditTime: 2021-04-26 16:58:17
+ * @LastEditTime: 2021-04-26 23:40:00
  */
 
 import * as fs from 'fs';
@@ -21,7 +21,7 @@ commander
   .command('create')
   .description('创建一个新项目')
   .action(() => {
-    green('创建项目：');
+    green('🚀 开始创建新项目...');
 
     // questions
     createQuestions()
