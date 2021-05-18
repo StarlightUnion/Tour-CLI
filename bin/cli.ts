@@ -4,16 +4,17 @@
  * @Description: tour-cli命令入口
  * @Author: tourist17846
  * @Date: 2021-03-14 23:35:15
- * @LastEditTime: 2021-04-26 23:40:00
+ * @LastEditTime: 2021-05-17 15:00:27
  */
 
 import * as fs from 'fs';
 import * as commander from 'commander';
-import { colorCli, createQuestions } from '../utils';
+import { colorCli, questions } from '../utils';
 
 
-const { green } = colorCli;
 const { readFileSync } = fs;
+const { green } = colorCli;
+const { handleCreateQuestionsList } = questions;
 const version: string = JSON.parse(readFileSync('package.json', 'utf-8')).version;
 
 // create
@@ -24,7 +25,7 @@ commander
     green('🚀 开始创建新项目...');
 
     // questions
-    createQuestions()
+    handleCreateQuestionsList()
       .then(res => {
         // if (res.start) {}
         console.log(res);
