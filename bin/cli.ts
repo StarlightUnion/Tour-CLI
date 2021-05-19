@@ -4,16 +4,16 @@
  * @Description: tour-cli命令入口
  * @Author: tourist17846
  * @Date: 2021-03-14 23:35:15
- * @LastEditTime: 2021-05-17 15:00:27
+ * @LastEditTime: 2021-05-19 09:38:34
  */
 
 import * as fs from 'fs';
 import * as commander from 'commander';
-import { colorCli, questions } from '../utils';
+import { utils, questions } from '../utils';
 
 
 const { readFileSync } = fs;
-const { green } = colorCli;
+const { green } = utils.colorCli();
 const { handleCreateQuestionsList } = questions;
 const version: string = JSON.parse(readFileSync('package.json', 'utf-8')).version;
 
