@@ -2,7 +2,7 @@
  * @Description: 命令行交互
  * @Author: tourist17846
  * @Date: 2021-04-26 16:14:40
- * @LastEditTime: 2021-05-26 17:29:52
+ * @LastEditTime: 2021-05-31 17:00:32
  */
 
 import * as inquirer from 'inquirer';
@@ -39,7 +39,7 @@ const createQuestions = [
     name: 'ts',
     type: 'confirm',
     message: '是否使用TypeScript',
-    when: (res: CREATE_RESULT): boolean => Boolean(res.start)
+    when: (res: CREATE_RESULT): boolean => Boolean(res.start) && res.type !== 'react'
   }
 ];
 
