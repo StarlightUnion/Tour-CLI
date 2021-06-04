@@ -1,8 +1,9 @@
 {
-  "name": "project-template",
+  "name": "ProjectName",
   "version": "0.1.0",
   "private": true,
   "homepage": ".",
+  "author": "ProjectAuthor",
   "dependencies": {
     "@types/echarts": "^4.1.4",
     "@types/html-minifier": "^4.0.0",

@@ -10,8 +10,8 @@ export interface COLOR_CLI {
 // create命令执行返回结果
 export interface CREATE_RESULT {
   readonly start: string,
-  readonly name?: string,
-  readonly author?: string,
-  readonly type?: string,
-  readonly ts?: string
+  readonly name: string,
+  readonly author: string,
+  readonly type: string,
+  readonly ts: string
 }
