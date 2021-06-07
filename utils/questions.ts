@@ -2,7 +2,7 @@
  * @Description: 命令行交互
  * @Author: tourist17846
  * @Date: 2021-04-26 16:14:40
- * @LastEditTime: 2021-05-31 17:00:32
+ * @LastEditTime: 2021-06-07 14:50:50
  */
 
 import * as inquirer from 'inquirer';
@@ -10,7 +10,7 @@ import utils from './utils';
 import { CREATE_RESULT } from './def';
 
 
-// create
+// create questions
 const createQuestions = [
   {
     name: 'start',
@@ -43,6 +43,12 @@ const createQuestions = [
   }
 ];
 
+/**
+ * @name: handleCreateQuestionsList
+ * @description: 返回一个inquirer Promise对象
+ * @param null
+ * @return {Promise<CREATE_RESULT>}
+ */
 function handleCreateQuestionsList(): Promise<CREATE_RESULT> {
   return new Promise((resolve) => {
     inquirer.prompt(createQuestions)

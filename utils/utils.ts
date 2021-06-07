@@ -2,7 +2,7 @@
  * @Description: 工具方法库
  * @Author: tourist17846
  * @Date: 2021-04-26 23:18:06
- * @LastEditTime: 2021-06-04 17:35:36
+ * @LastEditTime: 2021-06-07 14:24:39
  */
 
 import * as chalk from 'chalk';
@@ -21,7 +21,7 @@ export default {
    * @description: 返回多色命令行方法
    * @return {object} COLOR_CLI
    */
-  colorCli(): COLOR_CLI {
+  colorCli: function (): COLOR_CLI {
     if (colorCli.length) {
       return colorCli;
     } else {
@@ -42,5 +42,7 @@ export default {
    * @param {string} cmd
    * @return {string}
    */
-  getInfoFromExecSync: (cmd: string): string => execSync(cmd).toString().trim(),
+  getInfoFromExecSync: function (cmd: string): string {
+    return execSync(cmd).toString().trim();
+  },
 }
