@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rimraf dist/",
     "build": "tsc",
-    "dev": "npm run unlink && npm run clean && npm run watch && npm run link",
+    "dev": "npm run clean && npm run watch && npm run link",
     "watch": "tsc --watch",
     "link": "yarn link tust-cli",
     "unlink": "yarn unlink tust-cli",
