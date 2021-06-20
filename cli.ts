@@ -1,16 +1,14 @@
-#!/usr/bin/env node
-
 /*
  * @Description: tour-cli命令入口
  * @Author: tourist17846
  * @Date: 2021-03-14 23:35:15
- * @LastEditTime: 2021-05-26 15:47:09
+ * @LastEditTime: 2021-06-20 23:43:59
  */
 
 import * as fs from 'fs';
 import * as commander from 'commander';
-import { utils, questions } from '../utils';
-import create from '../scripts/create';
+import { utils, questions } from './utils';
+import create from './scripts/create';
 
 
 const { readFileSync } = fs;

@@ -3,17 +3,16 @@
     "target": "ES5",
     "module": "commonjs",
     "strict": true,
-    "removeComments": false,
+    "removeComments": true,
     "noEmitOnError": true,
     "suppressImplicitAnyIndexErrors": true,
     "outDir": "./dist",
+    "esModuleInterop": true,
     "sourceMap": false,
     "declaration": true,
-    "declarationMap": false,
-    "declarationDir": "./dist/types"
+    "declarationMap": false
   },
   "include": [
-    "./bin/**/*",
     "./scripts/**/*",
     "./utils/**/*"
   ],
