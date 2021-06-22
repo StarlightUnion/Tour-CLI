@@ -2,19 +2,18 @@
   "name": "tust-cli",
   "version": "0.0.3-beta",
   "description": "tust-cli",
-  "main": "./dist/cli.js",
+  "main": "index.js",
   "bin": {
-    "tust-cli": "./dist/cli.js"
+    "tust-cli": "./bin/cli.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run env:prod && rollup -c rollup.config.js",
     "dev": "npm run env:dev && rollup -c rollup.config.js -w",
-    "env:dev": "set NODE_ENV=developemnt",
-    "env:prod": "set NODE_ENV=production",
-    "link": "yarn link tust-cli",
-    "unlink": "yarn unlink tust-cli",
-    "reinstall": "yarn install --force",
+    "env:dev": "cross-env NODE_ENV=developemnt",
+    "env:prod": "cross-env NODE_ENV=production",
+    "link": "npm link tust-cli",
+    "unlink": "npm unlink tust-cli",
     "adduser": "npm adduser --registry http://registry.npmjs.org",
     "publish": "npm publish --registry http://registry.npmjs.org"
   },
@@ -35,6 +34,7 @@
     "@types/node": "^14.14.35",
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/parser": "^4.17.0",
+    "cross-env": "^7.0.3",
     "eslint": "^7.22.0",
     "rollup": "^2.52.1",
     "rollup-plugin-cleandir": "^1.0.0",
