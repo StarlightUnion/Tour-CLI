@@ -4,13 +4,13 @@
   "description": "tust-cli",
   "main": "index.js",
   "bin": {
-    "tust": "./bin/cli.js"
+    "tust-cli": "./bin/cli.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rimraf dist/",
-    "build": "npm run clean && cross-env NODE_ENV=production&& rollup -c rollup.config.js",
-    "dev": "npm run clean && cross-env NODE_ENV=developemnt&& rollup -c rollup.config.js -w",
+    "build": "npm run clean && rollup -c rollup.config.js",
+    "dev": "npm run clean && rollup -c rollup.config.js -w",
     "link": "yarn link tust-cli",
     "unlink": "yarn unlink tust-cli",
     "adduser": "npm adduser --registry http://registry.npmjs.org",
@@ -33,7 +33,6 @@
     "@types/node": "^14.14.35",
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/parser": "^4.17.0",
-    "cross-env": "^7.0.3",
     "eslint": "^7.22.0",
     "rimraf": "^3.0.2",
     "rollup": "^2.52.1",
