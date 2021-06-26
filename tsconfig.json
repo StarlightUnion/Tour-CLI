@@ -13,8 +13,7 @@
     "declarationMap": false
   },
   "include": [
-    "./scripts/**/*",
-    "./utils/**/*"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",

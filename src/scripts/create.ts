@@ -2,7 +2,7 @@
  * @Description: 创建项目
  * @Author: tourist17846
  * @Date: 2021-03-15 20:27:52
- * @LastEditTime: 2021-06-07 13:40:34
+ * @LastEditTime: 2021-06-26 23:27:45
  */
 
 import { utils, file, def } from '../utils'
@@ -28,8 +28,10 @@ const create = (res: def.CREATE_RESULT): void => {
   //     file.copyFiles(sourcePath, currentPath, () => console.log(state));
   //   });
 
+  console.log(process.env);
+
   // 测试用
-  file.copyFiles(sourcePath, currentPath, () => console.log('test'));
+  // file.copyFiles(sourcePath, currentPath, () => console.log('test'));
 };
 
 /**

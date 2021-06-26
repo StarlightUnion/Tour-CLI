@@ -1,7 +1,6 @@
 import path from 'path';
 import rollupPluginJson from '@rollup/plugin-json';
 import typescript from 'rollup-plugin-typescript2';
-import { cleandir } from 'rollup-plugin-cleandir';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 const pathResolve = _path => path.resolve(__dirname, _path);
@@ -27,11 +26,12 @@ const nodeResolvePlugin = nodeResolve({
 // 配置导出
 const rollupConfig = {
   input: [
-    './cli.ts'
+    './src/cli.ts'
   ],
   output: {
     dir: './dist',
-    format: 'cjs'
+    format: 'cjs',
+    interop: false
   },
   external: [
     'commander',
@@ -39,7 +39,6 @@ const rollupConfig = {
     'chalk'
   ],
   plugins: [
-    cleandir('./dist'),
     typescriptPlugin,
     nodeResolvePlugin,
     rollupPluginJson(),
