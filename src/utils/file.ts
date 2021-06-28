@@ -19,28 +19,27 @@ export default {
    */
   packageJsonModify: function (res: CREATE_RESULT, path: string): Promise<boolean> {
     return new Promise((resolve) => {
-      fs.readFile(path + '/package.json', (error, data) => {
-        if (error) throw error;
+      // 同步读取文件
+      const data = fs.readFileSync(path + '/package.json');
 
-        const { author, name } = res;
-        let json: string = data.toString();
+      const { author, name } = res;
+      let json: string = data.toString();
 
-        // 替换 项目名称/作者
-        json = json
-          .replace(/ProjectName/g, name.trim())
-          .replace(/ProjectAuthor/g, author.trim());
+      // 替换 项目名称/作者
+      json = json
+        .replace(/ProjectName/g, name.trim())
+        .replace(/ProjectAuthor/g, author.trim());
 
-        const resolvePath = process.cwd() + '/package.json';
+      const resolvePath = process.cwd() + '/package.json';
 
-        fs.writeFile(resolvePath, Buffer.from(json), (err) => {
-          if (err) {
-            if (error) throw error;
-            resolve(false);
-          } else {
-            green(`resolve file from ${path} to ${resolvePath}`);
-            resolve(true);
-          }
-        });
+      fs.writeFile(resolvePath, Buffer.from(json), err => {
+        if (err) {
+          resolve(false);
+          throw err;
+        } else {
+          green(`resolve file from ${path} to ${resolvePath}`);
+          resolve(true);
+        }
       });
     });
   },
@@ -52,42 +51,44 @@ export default {
    * @param {void} copyCallBack
    * @return null
    */
-  copyFiles: function (sourcePath: string, currentPath: string, copyCallBack: () => void ): void {
+  copyFiles: function (sourcePath: string, currentPath: string, copyCallBack: () => void): void {
+    this.readDirCount = 0;
     this.readDirCount++;
 
-    // 读取文件夹
-    fs.readdir(sourcePath, (error, filePaths) => {
-      this.readDirCount--;
-      if (error) throw error;
+    // 同步读取文件夹
+    const filePaths = fs.readdirSync(sourcePath);
 
-      filePaths.forEach(filePath => {
-        if (!this.copyExceptFiles.includes(filePath)) this.fileCount++;
+    this.readDirCount--;
 
-        const _sourcePath = `${sourcePath}/${filePath}`,
-          _currentPath = `${currentPath}/${filePath}`;
+    filePaths.length && filePaths.forEach(filePath => {
+      if (!this.copyExceptFiles.includes(filePath)) {
+        this.fileCount = 0;
+        this.fileCount++;
+      }
 
-        // 读取文件状态
-        fs.stat(_sourcePath, (error, stats) => {
-          if (error) throw error;
+      const _sourcePath = `${sourcePath}/${filePath}`,
+        _currentPath = `${currentPath}/${filePath}`;
 
-          // 如果当前读取的是文件且不是 package.json
-          if (stats.isFile() && filePath !== 'package.json') {
-            const readStream = fs.createReadStream(_sourcePath);
-            const writeStream = fs.createWriteStream(_currentPath);
+      // 同步读取文件状态
+      const stat = fs.statSync(_sourcePath);
 
-            readStream.pipe(writeStream);
-            green(`resolve file from ${_sourcePath} to ${_currentPath}`);
-            this.fileCount--;
-          }
-          // 如果读取的是文件夹
-          else if (stats.isDirectory()) {
-            if (!this.copyExceptFiles.includes(filePath)) {
-              this.dirCount++;
-              // dirExist(_sourcePath, _currentPath, this.copyFiles, copyCallBack);
-            }
-          }
-        });
-      });
-    })
+      // 如果当前读取的是文件且不是 package.json
+      if (stat.isFile() && filePath !== 'package.json') {
+        const readStream = fs.createReadStream(_sourcePath);
+        const writeStream = fs.createWriteStream(_currentPath);
+
+        readStream.pipe(writeStream);
+        green(`resolve file from ${_sourcePath} to ${_currentPath}`);
+        this.fileCount--;
+      }
+      // 如果读取的是文件夹
+      else if (stat.isDirectory()) {
+        if (!this.copyExceptFiles.includes(filePath)) {
+          this.dirCount = 0;
+          this.dirCount++;
+          // dirExist(_sourcePath, _currentPath, this.copyFiles, copyCallBack);
+        }
+      }
+    });
   }
 }

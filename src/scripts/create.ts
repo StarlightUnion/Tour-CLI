@@ -2,7 +2,7 @@
  * @Description: 创建项目
  * @Author: tourist17846
  * @Date: 2021-03-15 20:27:52
- * @LastEditTime: 2021-06-26 23:53:39
+ * @LastEditTime: 2021-06-28 23:39:24
  */
 
 import { utils, file, def } from '../utils'
@@ -23,13 +23,13 @@ const create = (res: def.CREATE_RESULT): void => {
   green('\n🚀 创建中...');
   blue(`\n📂 当前目录：${currentPath}`);
 
-  // file.packageJsonModify(res, sourcePath)
-  //   .then(state => {
-  //     file.copyFiles(sourcePath, currentPath, () => console.log(state));
-  //   });
+  file.packageJsonModify(res, sourcePath)
+    .then(state => {
+      file.copyFiles(sourcePath, currentPath, () => console.log(state));
+    });
 
   // 测试用
-  file.copyFiles(sourcePath, currentPath, () => console.log('test'));
+  // file.copyFiles(sourcePath, currentPath, () => console.log('test'));
 };
 
 /**
