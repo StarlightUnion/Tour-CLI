@@ -8,7 +8,7 @@
 import * as questions from './questions';
 import utils from './utils';
 import file from './file';
-import * as def from './def';
+import * as def from './declare';
 
 
 export {

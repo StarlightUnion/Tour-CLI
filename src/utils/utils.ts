@@ -2,12 +2,12 @@
  * @Description: 工具方法库
  * @Author: tourist17846
  * @Date: 2021-04-26 23:18:06
- * @LastEditTime: 2021-06-07 14:24:39
+ * @LastEditTime: 2021-06-29 00:30:49
  */
 
 import * as chalk from 'chalk';
 import * as childProcess from 'child_process';
-import { CLI_VOID, COLOR_CLI } from './def';
+import { CLI_VOID, COLOR_CLI, CREATE_RESULT } from './declare';
 
 
 const { execSync } = childProcess;
@@ -19,7 +19,7 @@ export default {
   /**
    * @name: colorCli
    * @description: 返回多色命令行方法
-   * @return {object} COLOR_CLI
+   * @return {COLOR_CLI}
    */
   colorCli: function (): COLOR_CLI {
     if (colorCli.length) {
@@ -44,5 +44,25 @@ export default {
    */
   getInfoFromExecSync: function (cmd: string): string {
     return execSync(cmd).toString().trim();
+  },
+  /**
+   * @name: getRootPath
+   * @description: 获取包的根目录地址
+   * @return {string}
+   */
+  getRootPath: function (): string {
+    return __dirname.slice(0, -4);
+  },
+  /**
+   * @name: handleTemplatePath
+   * @description: 处理template路径
+   * @param {CREATE_RESULT} res
+   * @return {string}
+   */
+  handleTemplatePath: function (res: CREATE_RESULT): string {
+    return this.getRootPath()
+      + 'templates/'
+      + (res.type === 'react' ? 'react' : `${res.type}-${res.ts ? 'ts' : 'js'}`)
+      + '/';
   },
 }

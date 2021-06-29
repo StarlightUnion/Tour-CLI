@@ -2,7 +2,7 @@
  * @Description: tour-cli命令入口
  * @Author: tourist17846
  * @Date: 2021-03-14 23:35:15
- * @LastEditTime: 2021-06-22 23:21:21
+ * @LastEditTime: 2021-06-29 00:31:25
  */
 
 import * as fs from 'fs';
@@ -14,7 +14,11 @@ import create from './scripts/create';
 const { readFileSync } = fs;
 const { green, red } = utils.colorCli();
 const { handleCreateQuestionsList } = questions;
-const version: string = JSON.parse(readFileSync('package.json', 'utf-8')).version;
+
+const version: string = JSON.parse(readFileSync(
+  `${utils.getRootPath()}package.json`,
+  'utf-8'
+)).version;
 
 // create
 commander

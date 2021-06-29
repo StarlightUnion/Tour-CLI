@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import utils from './utils';
-import { CREATE_RESULT } from './def';
+import { CREATE_RESULT, CopyFilesType } from './declare';
 
 
 const { green } = utils.colorCli();
@@ -51,20 +51,16 @@ export default {
    * @param {void} copyCallBack
    * @return null
    */
-  copyFiles: function (sourcePath: string, currentPath: string, copyCallBack: () => void): void {
+  copyFiles: function (sourcePath: string, currentPath: string, callBack: () => void): void {
     this.readDirCount = 0;
     this.readDirCount++;
 
     // 同步读取文件夹
     const filePaths = fs.readdirSync(sourcePath);
 
-    this.readDirCount--;
-
     filePaths.length && filePaths.forEach(filePath => {
-      if (!this.copyExceptFiles.includes(filePath)) {
-        this.fileCount = 0;
-        this.fileCount++;
-      }
+      this.readDirCount--;
+      if (!this.copyExceptFiles.includes(filePath)) this.fileCount++;
 
       const _sourcePath = `${sourcePath}/${filePath}`,
         _currentPath = `${currentPath}/${filePath}`;
@@ -80,15 +76,20 @@ export default {
         readStream.pipe(writeStream);
         green(`resolve file from ${_sourcePath} to ${_currentPath}`);
         this.fileCount--;
-      }
-      // 如果读取的是文件夹
-      else if (stat.isDirectory()) {
+      } else if (stat.isDirectory()) {// 如果读取的是文件夹
         if (!this.copyExceptFiles.includes(filePath)) {
-          this.dirCount = 0;
           this.dirCount++;
-          // dirExist(_sourcePath, _currentPath, this.copyFiles, copyCallBack);
+          this.handleDirectory(_sourcePath, _currentPath, this.copyFiles, callBack);
         }
       }
     });
+  },
+  handleDirectory: function (sourcePath: string, currentPath: string, copyFunc: CopyFilesType, callBack: () => void): void {
+    // 判断当前目录下是否有改文件夹
+    if (fs.existsSync(currentPath)) {
+      copyFunc(sourcePath, currentPath, callBack);
+    } else {
+      // TODO: 不存在即创建文件夹
+    }
   }
 }

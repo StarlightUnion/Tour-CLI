@@ -11,9 +11,7 @@
     "clean": "rimraf dist/",
     "build": "npm run clean && rollup -c rollup.config.js",
     "dev": "npm run clean && rollup -c rollup.config.js -w",
-    "start": "npm run unlink && npm run link",
-    "link": "yarn link tust-cli",
-    "unlink": "yarn unlink tust-cli",
+    "link": "sudo npm link",
     "adduser": "npm adduser --registry http://registry.npmjs.org",
     "publish": "npm publish --registry http://registry.npmjs.org"
   },

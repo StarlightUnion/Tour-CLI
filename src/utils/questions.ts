@@ -7,7 +7,7 @@
 
 import * as inquirer from 'inquirer';
 import utils from './utils';
-import { CREATE_RESULT } from './def';
+import { CREATE_RESULT } from './declare';
 
 
 // create questions
