@@ -30,14 +30,14 @@ export default {
         .replace(/ProjectName/g, name.trim())
         .replace(/ProjectAuthor/g, author.trim());
 
-      const resolvePath = process.cwd() + '/package.json';
+      const resolvePath = utils.getCwdPath('./package.json');
 
       fs.writeFile(resolvePath, Buffer.from(json), err => {
         if (err) {
           resolve(false);
           throw err;
         } else {
-          green(`resolve file from ${path} to ${resolvePath}`);
+          green(`resolve file: ${resolvePath}`);
           resolve(true);
         }
       });
@@ -74,7 +74,7 @@ export default {
         const writeStream = fs.createWriteStream(_currentPath);
 
         readStream.pipe(writeStream);
-        green(`resolve file from ${_sourcePath} to ${_currentPath}`);
+        green(`resolve file: ${_currentPath}`);
         this.fileCount--;
       } else if (stat.isDirectory()) {// 如果读取的是文件夹
         if (!this.copyExceptFiles.includes(filePath)) {
@@ -84,12 +84,29 @@ export default {
       }
     });
   },
+  /**
+   * @name: handleDirectory
+   * @description: 处理文件夹深复制
+   * @param {string} sourcePath
+   * @param {string} currentPath
+   * @param {CopyFilesType} copyFunc
+   * @param {void} callBack
+   * @return null
+   */
   handleDirectory: function (sourcePath: string, currentPath: string, copyFunc: CopyFilesType, callBack: () => void): void {
     // 判断当前目录下是否有改文件夹
     if (fs.existsSync(currentPath)) {
       copyFunc(sourcePath, currentPath, callBack);
     } else {
-      // TODO: 不存在即创建文件夹
+      fs.mkdirSync(currentPath);
+
+      this.fileCount--;
+      this.dirCount--;
+
+      copyFunc(sourcePath, currentPath, callBack);
+      green(`create directory: ${sourcePath}`);
+      // TODO: 复制完成之后
     }
-  }
+  },
+
 }

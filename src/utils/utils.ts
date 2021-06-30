@@ -2,9 +2,10 @@
  * @Description: 工具方法库
  * @Author: tourist17846
  * @Date: 2021-04-26 23:18:06
- * @LastEditTime: 2021-06-29 00:30:49
+ * @LastEditTime: 2021-06-30 00:16:49
  */
 
+import * as path from 'path';
 import * as chalk from 'chalk';
 import * as childProcess from 'child_process';
 import { CLI_VOID, COLOR_CLI, CREATE_RESULT } from './declare';
@@ -52,6 +53,15 @@ export default {
    */
   getRootPath: function (): string {
     return __dirname.slice(0, -4);
+  },
+  /**
+   * @name: getCwdPath
+   * @description: 获取当前进程的目录/{_path}
+   * @param {string} _path
+   * @return {string}
+   */
+  getCwdPath: function (_path: string): string {
+    return path.join(process.cwd(), _path);
   },
   /**
    * @name: handleTemplatePath

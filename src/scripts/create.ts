@@ -2,10 +2,10 @@
  * @Description: 创建项目
  * @Author: tourist17846
  * @Date: 2021-03-15 20:27:52
- * @LastEditTime: 2021-06-29 00:17:29
+ * @LastEditTime: 2021-06-30 00:01:49
  */
 
-import { utils, file, def } from '../utils'
+import { utils, file, declare } from '../utils'
 
 
 const { green, blue } = utils.colorCli();
@@ -16,7 +16,7 @@ const { green, blue } = utils.colorCli();
  * @param {CREATE_RESULT} res
  * @return null
  */
-const create = (res: def.CREATE_RESULT): void => {
+const create = (res: declare.CREATE_RESULT): void => {
   const sourcePath = utils.handleTemplatePath(res); // 获取资源路径
   const currentPath = process.cwd(); // 命令行当前所在路径
 
