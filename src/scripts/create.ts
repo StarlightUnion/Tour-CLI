@@ -2,7 +2,7 @@
  * @Description: 创建项目
  * @Author: tourist17846
  * @Date: 2021-03-15 20:27:52
- * @LastEditTime: 2021-06-30 00:01:49
+ * @LastEditTime: 2021-07-03 23:56:07
  */
 
 import { utils, file, declare } from '../utils'
@@ -23,13 +23,13 @@ const create = (res: declare.CREATE_RESULT): void => {
   green('\n🚀 创建中...');
   blue(`\n📂 当前目录：${currentPath}`);
 
+  const _currentPath = file.createProjectDirectory(currentPath, res.name);
+
   file.packageJsonModify(res, sourcePath)
     .then(state => {
-      file.copyFiles(sourcePath, currentPath, () => console.log(state));
+      file.init();
+      file.copyFiles(sourcePath, _currentPath, () => console.log(state));
     });
-
-  // 测试用
-  // file.copyFiles(sourcePath, currentPath, () => console.log('test'));
 };
 
 export default create;
