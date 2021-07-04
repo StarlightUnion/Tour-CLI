@@ -1,37 +1,13 @@
 import * as fs from 'fs';
+import * as path from 'path';
 import utils from './utils';
 import { CREATE_RESULT } from './declare';
 
 
-const { green } = utils.colorCli();
+const { yellow, red } = utils.colorCli();
 
 export default {
-  fileCount: 0, // 文件总数
-  dirCount: 0, // 文件夹总数
-  readDirCount: 0, // fs读取的文件夹总数
   copyExceptFiles: ['package.json'], // 不需要拷贝的文件
-  /**
-   * @name: createProjectDirectory
-   * @description: 在当前目录下创建项目文件夹
-   * @param {string} currentPath 当前工作目录
-   * @param {string} projectName 项目名称
-   * @return {string} 项目地址
-   */
-  createProjectDirectory: function (currentPath: string, projectName: string): string {
-    const projectPath = `${currentPath}/${projectName}`;
-    if (!fs.existsSync(projectPath)) fs.mkdirSync(projectPath);
-    return projectPath;
-  },
-  /**
-   * @name: init
-   * @description: 初始化
-   * @return null
-   */
-  init: function (): void {
-    this.fileCount = 0;
-    this.dirCount = 0;
-    this.readDirCount = 0;
-  },
   /**
    * @name: packageJsonModify
    * @description: 修改package.json 文件读写操作
@@ -54,96 +30,110 @@ export default {
 
       const resolvePath = utils.getCwdPath(`./${res.name}/package.json`);
 
-      fs.writeFile(resolvePath, Buffer.from(json), err => {
-        if (err) {
+      fs.writeFile(resolvePath, Buffer.from(json), error => {
+        if (error) {
           resolve(false);
-          throw err;
+          throw error;
         } else {
-          green(`\nresolve file: ${resolvePath}`);
+          yellow(`\nresolve file: ${resolvePath}`);
           resolve(true);
         }
       });
     });
   },
   /**
-   * @name: copyFiles
-   * @description: 拷贝template到当前目录
+   * @name: createDirectory
+   * @description: 判断当前文件夹是否存在，不存在则创建
+   * @param {string} currentPath 当前工作目录
+   * @param {string} directoryName 文件夹名称
+   * @return {string} 文件夹地址
+   */
+    createDirectory: function (currentPath: string, directoryName?: string): string {
+    const directoryPath = directoryName ? `${currentPath}/${directoryName}` : currentPath;
+
+    if (!fs.existsSync(directoryPath)) {
+      fs.mkdirSync(directoryPath);
+      yellow(`create directory: ${directoryPath}`);
+    }
+
+    return directoryPath;
+  },
+  /**
+   * @name: copyDirectory
+   * @description: 处理文件夹的复制
    * @param {string} sourcePath
    * @param {string} currentPath
    * @param {void} copyCallBack
    * @return null
    */
-  copyFiles: function (sourcePath: string, currentPath: string, callBack: () => void): void {
-    // this.readDirCount++;
+  copyDirectory: function (sourcePath: string, currentPath: string, callBack: () => void): void {
+    fs.readdir(sourcePath, (error, filePaths) => { // 同步读取文件夹
+      let fileCount = 0;
 
-    // 同步读取文件夹
-    const filePaths = fs.readdirSync(sourcePath);
+      // 检查当前文件夹是否复制完成
+      const checkFileCount = (): void => {
+        // TODO: 解决回调无法执行的问题
+        ++fileCount === this.computeFileCount(filePaths) && callBack && callBack();
+        console.log(fileCount, this.computeFileCount(filePaths));
+      };
 
-    filePaths.length && filePaths.forEach(filePath => {
-      // this.readDirCount--;
-      if (!this.copyExceptFiles.includes(filePath)) this.fileCount++;
-
-      const _sourcePath = `${sourcePath}/${filePath}`,
-        _currentPath = `${currentPath}/${filePath}`;
-
-      // 同步读取文件状态
-      const stat = fs.statSync(_sourcePath);
-
-      // 如果当前读取的是文件且不是 package.json
-      if (stat.isFile() && filePath !== 'package.json') {
-        const readStream = fs.createReadStream(_sourcePath);
-        const writeStream = fs.createWriteStream(_currentPath);
-
-        readStream.pipe(writeStream);
-        green(`resolve file: ${_currentPath}`);
-        this.fileCount--;
-      } else if (stat.isDirectory()) {// 如果读取的是文件夹
-        if (!this.copyExceptFiles.includes(filePath)) {
-          this.dirCount++;
-          this.handleDirectory(_sourcePath, _currentPath, callBack);
-        }
+      if (error) {
+        checkFileCount();
+        return;
       }
+
+      this.createDirectory(currentPath);
+
+      filePaths.length && filePaths.forEach(filePath => {
+        if (!this.copyExceptFiles.includes(filePath)) fileCount++;
+
+        const _sourcePath = path.join(sourcePath, filePath),
+          _currentPath = path.join(currentPath, filePath);
+
+        // 同步读取文件状态
+        const stat = fs.statSync(_sourcePath);
+
+        // 如果当前读取的是文件且不是 package.json
+        if (stat.isFile() && !this.copyExceptFiles.includes(filePath)) {
+          this.copyFiles(_sourcePath, _currentPath, checkFileCount);
+        } else if (stat.isDirectory() && !this.copyExceptFiles.includes(filePath)) {// 如果读取的是文件夹
+          this.copyDirectory(_sourcePath, _currentPath, checkFileCount);
+        }
+      });
     });
   },
   /**
-   * @name: handleDirectory
-   * @description: 处理文件夹深复制
+   * @name: copyFiles
+   * @description: 处理文件的复制
    * @param {string} sourcePath
    * @param {string} currentPath
-   * @param {CopyFilesType} copyFunc
-   * @param {void} callBack
-   * @return null
-   */
-  handleDirectory: function (sourcePath: string, currentPath: string, callBack: () => void): void {
-    // 判断当前目录下是否有该文件夹
-    if (fs.existsSync(currentPath)) {
-      this.copyFiles(sourcePath, currentPath, callBack);
-    } else {
-      fs.mkdirSync(currentPath);
-
-      this.fileCount--;
-      this.dirCount--;
-
-      this.copyFiles(sourcePath, currentPath, callBack);
-      green(`create directory: ${sourcePath}`);
-
-      // 深复制完成之后
-      this.copyIsDone(callBack);
-    }
-  },
-  /**
-   * @name: copyIsDone
-   * @description: 处理复制完成之后
    * @param {function} callBack
    * @return null
    */
-  copyIsDone: function (callBack: () => void): void {
-    console.log(this.fileCount, this.readDirCount, this.fileCount);
-    if (this.fileCount === 0 && this.readDirCount === 0 && this.fileCount === 0) {
-      green('\n👌 完成复制，准备安装依赖...');
+  copyFiles: function (sourcePath: string, currentPath: string, callBack: () => void): void {
+    const readStream = fs.createReadStream(sourcePath);
+    const writeStream = fs.createWriteStream(currentPath);
 
-      // 执行回调
-      if (callBack) callBack();
-    }
+    readStream.on('error', error => {
+      if (error) red(`read file: ${sourcePath} error`);
+      callBack && callBack();
+    });
+
+    writeStream.on('error', error => {
+      if (error) red(`write file: ${currentPath} error`);
+      callBack && callBack();
+    });
+
+    writeStream.on('close', () => {
+      yellow(`resolve file: ${currentPath}`);
+      callBack && callBack();
+    });
+
+    readStream.pipe(writeStream);
+  },
+  computeFileCount: function (filePaths: string[]): number {
+    return filePaths.length - filePaths
+      .filter(path => this.copyExceptFiles.includes(path))
+      .length;
   }
 }
