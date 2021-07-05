@@ -72,9 +72,7 @@ export default {
 
       // 检查当前文件夹是否复制完成
       const checkFileCount = (): void => {
-        // TODO: 解决回调无法执行的问题
         ++fileCount === this.computeFileCount(filePaths) && callBack && callBack();
-        console.log(fileCount, this.computeFileCount(filePaths));
       };
 
       if (error) {
@@ -85,7 +83,7 @@ export default {
       this.createDirectory(currentPath);
 
       filePaths.length && filePaths.forEach(filePath => {
-        if (!this.copyExceptFiles.includes(filePath)) fileCount++;
+        if (this.copyExceptFiles.includes(filePath)) return;
 
         const _sourcePath = path.join(sourcePath, filePath),
           _currentPath = path.join(currentPath, filePath);
@@ -93,13 +91,14 @@ export default {
         // 同步读取文件状态
         const stat = fs.statSync(_sourcePath);
 
-        // 如果当前读取的是文件且不是 package.json
-        if (stat.isFile() && !this.copyExceptFiles.includes(filePath)) {
+        if (stat.isFile()) {// 如果读取的是文件
           this.copyFiles(_sourcePath, _currentPath, checkFileCount);
-        } else if (stat.isDirectory() && !this.copyExceptFiles.includes(filePath)) {// 如果读取的是文件夹
+        } else if (stat.isDirectory()) {// 如果读取的是文件夹
           this.copyDirectory(_sourcePath, _currentPath, checkFileCount);
         }
       });
+
+      filePaths.length === 0 && callBack && callBack();
     });
   },
   /**
