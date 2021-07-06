@@ -41,6 +41,7 @@ export default {
       });
     });
   },
+
   /**
    * @name: createDirectory
    * @description: 判断当前文件夹是否存在，不存在则创建
@@ -58,6 +59,7 @@ export default {
 
     return directoryPath;
   },
+
   /**
    * @name: copyDirectory
    * @description: 处理文件夹的复制
@@ -101,6 +103,7 @@ export default {
       filePaths.length === 0 && callBack && callBack();
     });
   },
+
   /**
    * @name: copyFiles
    * @description: 处理文件的复制
@@ -130,6 +133,13 @@ export default {
 
     readStream.pipe(writeStream);
   },
+
+  /**
+   * @name: computeFileCount
+   * @description: 计算当前目录除去忽略文件后的个数
+   * @param {string[]} filePaths
+   * @return {number}
+   */
   computeFileCount: function (filePaths: string[]): number {
     return filePaths.length - filePaths
       .filter(path => this.copyExceptFiles.includes(path))

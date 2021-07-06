@@ -36,7 +36,8 @@ const rollupConfig = {
   external: [
     'commander',
     'inquirer',
-    'chalk'
+    'chalk',
+    'which'
   ],
   plugins: [
     typescriptPlugin,

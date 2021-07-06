@@ -2,7 +2,7 @@
  * @Description: 工具方法库
  * @Author: tourist17846
  * @Date: 2021-04-26 23:18:06
- * @LastEditTime: 2021-06-30 00:16:49
+ * @LastEditTime: 2021-07-07 00:25:18
  */
 
 import * as path from 'path';
@@ -23,7 +23,7 @@ export default {
    * @return {COLOR_CLI}
    */
   colorCli: function (): COLOR_CLI {
-    if (colorCli.length) {
+    if (!this.isEmptyObject(colorCli)) {
       return colorCli;
     } else {
       colors.forEach(item => {
@@ -37,6 +37,16 @@ export default {
       return colorCli;
     }
   },
+
+  /**
+   * @name: isEmptyObject
+   * @description: 判断是否为空对象
+   * @param {object} object
+   * @return {boolean}
+   */
+  isEmptyObject: function (object: { [k: string]: unknown }): boolean {
+    return Object.keys(object).length === 0;
+  },
   /**
    * @name: getInfoFromExecSync
    * @description: 返回执行cmd命令获得的结果
@@ -46,6 +56,7 @@ export default {
   getInfoFromExecSync: function (cmd: string): string {
     return execSync(cmd).toString().trim();
   },
+
   /**
    * @name: getRootPath
    * @description: 获取包的根目录地址
@@ -54,6 +65,7 @@ export default {
   getRootPath: function (): string {
     return __dirname.slice(0, -4);
   },
+
   /**
    * @name: getCwdPath
    * @description: 获取当前进程的目录/{_path}
@@ -63,6 +75,17 @@ export default {
   getCwdPath: function (_path: string): string {
     return path.join(process.cwd(), _path);
   },
+
+  /**
+   * @name: showCurrentPath
+   * @description: 打印当前工作目录
+   * @return null
+   */
+  showCurrentPath: function (): void {
+    const { blue } = this.colorCli();
+    blue(`\n📂 当前目录：${process.cwd()}\n`)
+  },
+
   /**
    * @name: handleTemplatePath
    * @description: 处理template路径
