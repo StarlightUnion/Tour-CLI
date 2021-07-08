@@ -74,7 +74,7 @@ export default {
 
       // 检查当前文件夹是否复制完成
       const checkFileCount = (): void => {
-        ++fileCount === this.computeFileCount(filePaths) && callBack && callBack();
+        ++fileCount === this.computeFileCount(filePaths) && callBack?.();
       };
 
       if (error) {
@@ -100,7 +100,7 @@ export default {
         }
       });
 
-      filePaths.length === 0 && callBack && callBack();
+      filePaths.length === 0 && callBack?.();
     });
   },
 
@@ -118,17 +118,17 @@ export default {
 
     readStream.on('error', error => {
       if (error) red(`read file: ${sourcePath} error`);
-      callBack && callBack();
+      callBack?.();
     });
 
     writeStream.on('error', error => {
       if (error) red(`write file: ${currentPath} error`);
-      callBack && callBack();
+      callBack?.();
     });
 
     writeStream.on('close', () => {
       yellow(`resolve file: ${currentPath}`);
-      callBack && callBack();
+      callBack?.();
     });
 
     readStream.pipe(writeStream);

@@ -2,13 +2,13 @@
  * @Description: 创建项目
  * @Author: tourist17846
  * @Date: 2021-03-15 20:27:52
- * @LastEditTime: 2021-07-07 00:20:59
+ * @LastEditTime: 2021-07-08 23:20:02
  */
 import { utils, file, declare } from '../utils';
 import npm from './install';
 
 
-const { green, blue } = utils.colorCli();
+const { green, red } = utils.colorCli();
 
 /**
  * @name: create
@@ -27,13 +27,17 @@ const create = (res: declare.CREATE_RESULT): void => {
 
   file.packageJsonModify(res, sourcePath)
     .then(state => {
-      file.copyDirectory(sourcePath, _currentPath, () => {
-        green('\n👌 完成复制，准备安装依赖...\n');
-        npm()(res.name, () => {
-          // TODO: 复制完成之后的回调
-          green('\n✔️ 完成依赖安装！\n')
+      if (state) {
+        file.copyDirectory(sourcePath, _currentPath, () => {
+          green('\n👌 完成复制，准备安装依赖...\n');
+          npm()(res.name, () => {
+            // TODO: 复制完成之后的回调
+            green('\n✔️ 完成依赖安装！\n')
+          });
         });
-      });
+      } else {
+        red('\n🚫 package.json修改失败，模板中似乎没有该文件...');
+      }
     });
 };
 
