@@ -2,7 +2,7 @@
  * @Description: 工具方法库
  * @Author: tourist17846
  * @Date: 2021-04-26 23:18:06
- * @LastEditTime: 2021-07-07 00:25:18
+ * @LastEditTime: 2021-07-09 00:00:16
  */
 
 import * as path from 'path';
@@ -54,7 +54,12 @@ export default {
    * @return {string}
    */
   getInfoFromExecSync: function (cmd: string): string {
-    return execSync(cmd).toString().trim();
+    try {
+      const res: string = execSync(cmd).toString().trim();
+      return res;
+    } catch (e) { }
+
+    return '';
   },
 
   /**
