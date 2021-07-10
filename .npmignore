@@ -1,3 +1,10 @@
-bin/
 src/
 node_modules
+.eslintignore
+.eslintrc
+.gitignore
+.npmignore
+package-lock.json
+rollup.config.js
+tsconfig.json
+yarn.lock
