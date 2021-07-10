@@ -2,13 +2,13 @@
  * @Description: 工具方法库
  * @Author: tourist17846
  * @Date: 2021-04-26 23:18:06
- * @LastEditTime: 2021-07-09 00:00:16
+ * @LastEditTime: 2021-07-10 23:18:06
  */
 
 import * as path from 'path';
 import * as chalk from 'chalk';
 import * as childProcess from 'child_process';
-import { CLI_VOID, COLOR_CLI, CREATE_RESULT } from './declare';
+import { CLI_VOID, COLOR_CLI, CREATE_RESULT, FrontEndFrameType } from './declare';
 
 
 const { execSync } = childProcess;
@@ -100,7 +100,9 @@ export default {
   handleTemplatePath: function (res: CREATE_RESULT): string {
     return this.getRootPath()
       + 'templates/'
-      + (res.type === 'react' ? 'react' : `${res.type}-${res.ts ? 'ts' : 'js'}`)
+      + (res.type === FrontEndFrameType.react
+      ? FrontEndFrameType.react
+      : `${res.type}-${res.ts ? 'ts' : 'js'}`)
       + '/';
   },
 }

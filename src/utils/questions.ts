@@ -2,12 +2,12 @@
  * @Description: 命令行交互
  * @Author: tourist17846
  * @Date: 2021-04-26 16:14:40
- * @LastEditTime: 2021-06-07 14:50:50
+ * @LastEditTime: 2021-07-10 23:11:37
  */
 
 import * as inquirer from 'inquirer';
 import utils from './utils';
-import { CREATE_RESULT } from './declare';
+import { CREATE_RESULT, FrontEndFrameType } from './declare';
 
 
 // create questions
@@ -32,14 +32,14 @@ const createQuestions = [
     name: 'type',
     type: 'list',
     message: '请选择框架',
-    choices: ['vue2', 'vue3', 'react'],
+    choices: Object.values(FrontEndFrameType),
     filter: (val: string): string => val.toLowerCase(),
     when: (res: CREATE_RESULT): boolean => Boolean(res.start)
   }, {
     name: 'ts',
     type: 'confirm',
     message: '是否使用TypeScript',
-    when: (res: CREATE_RESULT): boolean => Boolean(res.start) && res.type !== 'react'
+    when: (res: CREATE_RESULT): boolean => Boolean(res.start) && res.type !== FrontEndFrameType.react
   }
 ];
 

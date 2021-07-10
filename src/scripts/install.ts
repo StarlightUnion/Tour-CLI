@@ -2,7 +2,7 @@
  * @Description: 安装依赖
  * @Author: tourist17846
  * @Date: 2021-07-06 23:09:01
- * @LastEditTime: 2021-07-08 23:52:32
+ * @LastEditTime: 2021-07-10 23:12:23
  */
 import which from 'which';
 import * as childProcess from 'child_process';
@@ -50,7 +50,7 @@ const findNpm = (): string | void => {
 
 /**
  * @name: npm
- * @description: 返回一个方法 执行：npm('install')
+ * @description: 返回一个方法 例如执行：npm('install')
  * @param {string} args
  * @return {declare.NPM}
  */
