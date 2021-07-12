@@ -4,11 +4,11 @@
   "description": "tust-cli",
   "main": "index.js",
   "bin": {
-    "tust-cli": "./bin/cli.js"
+    "tust": "./bin/cli.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "rimraf dist/",
+    "clean": "rimraf ./dist/",
     "build": "npm run clean && rollup -c rollup.config.js",
     "dev": "npm run clean && rollup -c rollup.config.js -w",
     "link": "sudo npm link",
