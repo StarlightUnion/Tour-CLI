@@ -2,13 +2,13 @@
  * @Description: 创建项目
  * @Author: tourist17846
  * @Date: 2021-03-15 20:27:52
- * @LastEditTime: 2021-07-10 23:44:32
+ * @LastEditTime: 2021-07-19 23:56:05
  */
 import { utils, file, declare } from '../utils';
-import npm from './install';
+import npm from './npm';
 
 
-const { green, red } = utils.colorCli();
+const { green, red, blue } = utils.colorCli();
 
 /**
  * @name: create
@@ -36,9 +36,14 @@ const create = (res: declare.CREATE_RESULT): void => {
       if (state) {
         file.copyDirectory(sourcePath, _currentPath, () => {
           green('\n👌 完成复制，准备安装依赖...\n');
-          npm()(res.name, () => {
-            green('\n✔️ 完成依赖安装！\n')
-          });
+          // npm()(res.name, () => {
+            green('\n✔️ 完成依赖安装！');
+
+            // 提示=>start
+            blue('\n  启动项目:');
+            blue(`   > cd ${res.name}`);
+            blue('   > tust start\n');
+          // });
         });
       } else {
         red('\n🚫 package.json修改失败，模板中似乎没有该文件...');

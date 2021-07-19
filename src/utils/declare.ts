@@ -26,7 +26,16 @@ export interface CREATE_RESULT {
  */
 // 前端框架类型
 export enum FrontEndFrameType {
+  /**
+   * vue 2.x
+   */
   vue2 = 'vue2',
+  /**
+   * vue 3.x
+   */
   vue3 = 'vue3',
+  /**
+   * react
+   */
   react = 'react'
 }

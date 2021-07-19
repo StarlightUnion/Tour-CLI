@@ -2,13 +2,14 @@
  * @Description: tour-cli命令入口
  * @Author: tourist17846
  * @Date: 2021-03-14 23:35:15
- * @LastEditTime: 2021-06-29 00:31:25
+ * @LastEditTime: 2021-07-19 23:47:09
  */
 
 import * as fs from 'fs';
 import * as commander from 'commander';
 import { utils, questions } from './utils';
 import create from './scripts/create';
+import start from './scripts/start';
 
 
 const { readFileSync } = fs;
@@ -41,7 +42,8 @@ commander
   .command('start')
   .description('启动项目')
   .action(() => {
-    green('启动项目：');
+    green('✈️ 项目启动中...\n');
+    start();
   });
 
 // build
