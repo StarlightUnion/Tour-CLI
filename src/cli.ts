@@ -2,7 +2,7 @@
  * @Description: tour-cli命令入口
  * @Author: tourist17846
  * @Date: 2021-03-14 23:35:15
- * @LastEditTime: 2021-07-19 23:47:09
+ * @LastEditTime: 2021-07-20 00:09:13
  */
 
 import * as fs from 'fs';
@@ -10,6 +10,7 @@ import * as commander from 'commander';
 import { utils, questions } from './utils';
 import create from './scripts/create';
 import start from './scripts/start';
+import build from './scripts/build';
 
 
 const { readFileSync } = fs;
@@ -51,7 +52,8 @@ commander
   .command('build')
   .description('打包项目')
   .action(() => {
-    green('打包项目：');
+    green('📦 打包项目中...\n');
+    build();
   });
 
 // version -v

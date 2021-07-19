@@ -29,7 +29,7 @@ export enum FrontEndFrameType {
   /**
    * vue 2.x
    */
-  vue2 = 'vue2',
+  // vue2 = 'vue2',
   /**
    * vue 3.x
    */

@@ -2,7 +2,7 @@
  * @Description: 安装依赖
  * @Author: tourist17846
  * @Date: 2021-07-06 23:09:01
- * @LastEditTime: 2021-07-10 23:12:23
+ * @LastEditTime: 2021-07-20 00:17:00
  */
 import which from 'which';
 import * as childProcess from 'child_process';
@@ -25,6 +25,8 @@ const run = (command: string, args: string[], cwd?: string, callBack?: (code?: n
     cwd: cwd ? cwd : void 0,
     stdio: 'inherit'
   });
+
+  // 完成
   runner.on('close', code => callBack?.(code));
 }
 
@@ -50,7 +52,7 @@ const findNpm = (): string | void => {
 
 /**
  * @name: npm
- * @description: 返回一个方法 例如执行：npm('install')
+ * @description: 返回一个方法 例如执行：npm('install') npm('run dev')
  * @param {string} args
  * @return {declare.NPM}
  */
@@ -58,7 +60,7 @@ const npm = (args = 'install'): declare.NPM => {
   const npm = findNpm();
 
   return (cwd?: string, callBack?: () => void) => {
-    run(which.sync(npm as string), [args], cwd, () => callBack?.());
+    run(which.sync(npm as string), args.split(' '), cwd, () => callBack?.());
   };
 }
 

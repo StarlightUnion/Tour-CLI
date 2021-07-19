@@ -21,4 +21,14 @@ npm i tust-cli -g
 ```shell
 tust -v # 查看版本
 tust create # 创建项目
+
+cd <project dir name> # 进入项目根目录
+tust start # 启动项目
+
+cd <project dir name> # 进入项目根目录
+tust build # 打包项目
 ```
+
+> 由于启动和打包使用的命令**默认**分别是`npm/cnpm run dev`和`npm/cnpm run build`。
+>
+> 需要在模板项目中的`package.json`中**提前配置好对应的脚本**。
