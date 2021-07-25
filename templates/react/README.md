@@ -13,7 +13,7 @@
 打开开发环境（`NODE_ENV=development`），启动webpack-dev-server等。<br />
 开发环境下生成的代码存放在`dist/development`目录中。
 
-### `npm run prod`
+### `npm run build`
 
 生产环境打包（`NODE_ENV=production`），打包生成代码存放在`dist/production`目录中。
 
