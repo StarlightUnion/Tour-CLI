@@ -38,7 +38,7 @@
     "setEnvDev": "cross-env NODE_ENV=development LIMIT=4096 increase-memory-limit",
     "production": "webpack --config config/webpack.prod.js --profile --progress",
     "dev-live": "webpack-dev-server --config config/webpack.dev.js --progress --profile --inline --open",
-    "prod": "npm run clean-prod && npm run production",
+    "build": "npm run clean-prod && npm run production",
     "dev": "npm run clean-dev && npm run dev-live",
     "check": "tsc -w",
     "eslint": "eslint --config .eslintrc --ext .jsx  src/",
