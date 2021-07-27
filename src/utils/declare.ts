@@ -1,24 +1,42 @@
 /**
  * type
  */
-export type CLI_VOID = (text: string, isConsole?: boolean) => unknown // colorCli 定义
+export type CLIVoid = (text: string, isConsole?: boolean) => unknown // colorCli 定义
 export type NPM = (cwd?: string, callBack?: () => void) => void // npm
 
 /**
  * 定义接口类型
  */
  // 彩色命令行对象
-export interface COLOR_CLI {
-  [keyName: string]: CLI_VOID
+export interface ColorCLI {
+  [keyName: string]: CLIVoid
 }
 
 // create命令执行返回结果
-export interface CREATE_RESULT {
-  readonly start: string,
+export interface BaseCreateResult {
+  /**
+   * 项目名称
+   */
   readonly name: string,
+  /**
+   * 作者
+   */
   readonly author: string,
+}
+
+export interface CreateResult extends BaseCreateResult {
+  /**
+   * 是否创建
+   */
+  readonly start: string,
+  /**
+   * 框架类型
+   */
   readonly type: string,
-  readonly ts: string
+  /**
+   * 是否使用typescript
+   */
+  readonly ts?: string
 }
 
 /**

@@ -2,27 +2,27 @@
  * @Description: 工具方法库
  * @Author: tourist17846
  * @Date: 2021-04-26 23:18:06
- * @LastEditTime: 2021-07-27 23:09:53
+ * @LastEditTime: 2021-07-28 00:10:48
  */
 
 import * as path from 'path';
 import * as chalk from 'chalk';
 import * as childProcess from 'child_process';
-import { CLI_VOID, COLOR_CLI, CREATE_RESULT, FrontEndFrameType } from './declare';
+import { CLIVoid, ColorCLI, CreateResult, FrontEndFrameType } from './declare';
 
 
 const { execSync } = childProcess;
 
 const colors: string[] = ['green', 'blue', 'yellow', 'red'];
-const colorCli: { [keyName: string]: CLI_VOID } = {};
+const colorCli: { [keyName: string]: CLIVoid } = {};
 
 export default {
   /**
    * @name: colorCli
    * @description: 返回多色命令行方法
-   * @return {COLOR_CLI}
+   * @return {ColorCLI}
    */
-  colorCli: function (): COLOR_CLI {
+  colorCli: function (): ColorCLI {
     if (!this.isEmptyObject(colorCli)) {
       return colorCli;
     } else {
@@ -95,15 +95,15 @@ export default {
   /**
    * @name: handleTemplatePath
    * @description: 处理template路径
-   * @param {CREATE_RESULT} res
+   * @param {CreateResult} res
    * @return {string}
    */
-  handleTemplatePath: function (res: CREATE_RESULT): string {
+  handleTemplatePath: function (res: CreateResult): string {
     return this.getPath()
       + '/'
       + (res.type === FrontEndFrameType.react
       ? FrontEndFrameType.react
-      : `${res.type}-${res.ts ? 'ts' : 'js'}`)
+      : `${res.type}-${res?.ts ? 'ts' : 'js'}`)
       + '/';
   },
 }

@@ -2,11 +2,11 @@
  * @Description: 安装依赖
  * @Author: tourist17846
  * @Date: 2021-07-06 23:09:01
- * @LastEditTime: 2021-07-20 00:17:00
+ * @LastEditTime: 2021-07-27 23:51:42
  */
 import which from 'which';
 import * as childProcess from 'child_process';
-import { utils, declare } from '../utils';
+import { utils, NPM } from '../utils';
 
 
 const { red } = utils.colorCli();
@@ -54,9 +54,9 @@ const findNpm = (): string | void => {
  * @name: npm
  * @description: 返回一个方法 例如执行：npm('install') npm('run dev')
  * @param {string} args
- * @return {declare.NPM}
+ * @return {NPM}
  */
-const npm = (args = 'install'): declare.NPM => {
+const npm = (args = 'install'): NPM => {
   const npm = findNpm();
 
   return (cwd?: string, callBack?: () => void) => {

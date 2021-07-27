@@ -2,12 +2,12 @@
  * @Description: tour-cli命令入口
  * @Author: tourist17846
  * @Date: 2021-03-14 23:35:15
- * @LastEditTime: 2021-07-27 23:19:38
+ * @LastEditTime: 2021-07-28 00:09:54
  */
 
 import * as fs from 'fs';
 import * as commander from 'commander';
-import { utils, questions } from './utils';
+import { utils, questions, CreateResult } from './utils';
 import create from './scripts/create';
 import start from './scripts/start';
 import build from './scripts/build';
@@ -16,7 +16,7 @@ import { templateList, templateCheck } from './scripts/template';
 
 const { readFileSync } = fs;
 const { green, red } = utils.colorCli();
-const { handleCreateQuestionsList } = questions;
+const { handleCreateQuestionsList, createQuestions } = questions;
 
 const version: string = JSON.parse(readFileSync(
   utils.getPath('../package.json'),
@@ -25,13 +25,13 @@ const version: string = JSON.parse(readFileSync(
 
 // create
 commander
-  .command('create')
+  .command('create [templateName]')
   .description('创建一个新项目')
-  .action(() => {
+  .action(templateName => {
     green('⚡ 开始创建新项目...\n');
 
     // questions
-    handleCreateQuestionsList()
+    handleCreateQuestionsList<CreateResult>(createQuestions)
       .then(res => {
         res.start
           ? create(res)
@@ -68,7 +68,7 @@ commander
       templateList();
     } else if (command.check) {
       // 检查当前模板名称是否可用
-      templateCheck(command.check);
+      templateCheck(command.check, true);
     }
   });
 
