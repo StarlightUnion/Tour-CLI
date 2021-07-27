@@ -2,7 +2,7 @@
  * @Description: tour-cli命令入口
  * @Author: tourist17846
  * @Date: 2021-03-14 23:35:15
- * @LastEditTime: 2021-07-20 00:09:13
+ * @LastEditTime: 2021-07-27 23:19:38
  */
 
 import * as fs from 'fs';
@@ -11,6 +11,7 @@ import { utils, questions } from './utils';
 import create from './scripts/create';
 import start from './scripts/start';
 import build from './scripts/build';
+import { templateList, templateCheck } from './scripts/template';
 
 
 const { readFileSync } = fs;
@@ -18,7 +19,7 @@ const { green, red } = utils.colorCli();
 const { handleCreateQuestionsList } = questions;
 
 const version: string = JSON.parse(readFileSync(
-  `${utils.getRootPath()}package.json`,
+  utils.getPath('../package.json'),
   'utf-8'
 )).version;
 
@@ -54,6 +55,21 @@ commander
   .action(() => {
     green('📦 打包项目中...\n');
     build();
+  });
+
+// template
+commander
+  .command('template')
+  .option('-l, --list', '显示所有可用的模板')
+  .option('-c, --check <templateName>', '检查当前模板名称是否可用')
+  .action(command => {
+    if (command.list) {
+      // 显示所有可用的模板
+      templateList();
+    } else if (command.check) {
+      // 检查当前模板名称是否可用
+      templateCheck(command.check);
+    }
   });
 
 // version -v
