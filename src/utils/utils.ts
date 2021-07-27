@@ -2,7 +2,7 @@
  * @Description: 工具方法库
  * @Author: tourist17846
  * @Date: 2021-04-26 23:18:06
- * @LastEditTime: 2021-07-10 23:18:06
+ * @LastEditTime: 2021-07-27 23:09:53
  */
 
 import * as path from 'path';
@@ -63,12 +63,13 @@ export default {
   },
 
   /**
-   * @name: getRootPath
-   * @description: 获取包的根目录地址
+   * @name: getPath
+   * @description: 获取包内指定目录地址
+   * @param {string} _path 需为相对于dist内文件的地址
    * @return {string}
    */
-  getRootPath: function (): string {
-    return __dirname.slice(0, -4);
+  getPath: function (_path?: string): string {
+    return path.resolve(__dirname, _path ? _path : '../templates');
   },
 
   /**
@@ -98,8 +99,8 @@ export default {
    * @return {string}
    */
   handleTemplatePath: function (res: CREATE_RESULT): string {
-    return this.getRootPath()
-      + 'templates/'
+    return this.getPath()
+      + '/'
       + (res.type === FrontEndFrameType.react
       ? FrontEndFrameType.react
       : `${res.type}-${res.ts ? 'ts' : 'js'}`)
