@@ -2,7 +2,7 @@
  * @Description: 命令 > tust template <options>
  * @Author: tourist17846
  * @Date: 2021-07-26 23:47:54
- * @LastEditTime: 2021-07-27 23:35:22
+ * @LastEditTime: 2021-07-28 00:19:14
  */
 import * as fs from 'fs';
 import * as path from 'path';
@@ -16,7 +16,7 @@ const { blue, green, red } = utils.colorCli();
  * @param {boolean} isReturn
  * @return null
  */
-const templateList = (isReturn?: boolean): void | string[] => {
+export const templateList = (isReturn?: boolean): void | string[] => {
   const templatesPath = utils.getPath();
   const templates = fs.readdirSync(templatesPath);
   const templatesText = templates
@@ -37,7 +37,7 @@ const templateList = (isReturn?: boolean): void | string[] => {
  * @param {boolean} isReturn 返回结果
  * @return {boolean}
  */
-const templateCheck = (name: string, showLog: boolean, isReturn?: boolean): void | boolean => {
+export const templateCheck = (name: string, showLog: boolean, isReturn?: boolean): void | boolean => {
   const templatesPath = utils.getPath();
   const templates = fs.readdirSync(templatesPath);
   const exist = templates.includes(name);
@@ -52,8 +52,3 @@ const templateCheck = (name: string, showLog: boolean, isReturn?: boolean): void
 
   if (isReturn) return exist;
 }
-
-export {
-  templateList,
-  templateCheck
-};
