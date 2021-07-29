@@ -2,6 +2,7 @@ import path from 'path';
 import rollupPluginJson from '@rollup/plugin-json';
 import typescript from 'rollup-plugin-typescript2';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
+import packageJson from './package.json';
 
 const pathResolve = _path => path.resolve(__dirname, _path);
 const extensions = ['.js', '.ts'];
@@ -31,7 +32,7 @@ const rollupConfig = {
   output: {
     dir: './dist',
     format: 'cjs',
-    interop: false
+    banner: `/**\n* tust - cli v${packageJson.version}\n* Copyright (c) 2021 tourist17846\n* Licensed under the MIT License (MIT)\n*/`
   },
   external: [
     'commander',
@@ -42,7 +43,7 @@ const rollupConfig = {
   plugins: [
     typescriptPlugin,
     nodeResolvePlugin,
-    rollupPluginJson(),
+    rollupPluginJson()
   ],
 };
 
