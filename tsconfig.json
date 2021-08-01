@@ -6,10 +6,11 @@
     "removeComments": false,
     "noEmitOnError": true,
     "suppressImplicitAnyIndexErrors": true,
-    "outDir": "./dist",
+    "outDir": "dist",
     "esModuleInterop": true,
     "sourceMap": false,
-    "declaration": true
+    "declaration": true,
+    "declarationDir": "dist/dts"
   },
   "include": [
     "src/**/*"

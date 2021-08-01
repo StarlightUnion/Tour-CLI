@@ -2,7 +2,7 @@
  * @Description: 工具方法库
  * @Author: tourist17846
  * @Date: 2021-04-26 23:18:06
- * @LastEditTime: 2021-07-28 00:10:48
+ * @LastEditTime: 2021-08-01 23:50:43
  */
 
 import * as path from 'path';
@@ -64,12 +64,17 @@ export default {
 
   /**
    * @name: getPath
-   * @description: 获取包内指定目录地址
+   * @description: 获取包内指定目录地址 需要根据打包方式不同切换不同的__path
    * @param {string} _path 需为相对于dist内文件的地址
    * @return {string}
    */
   getPath: function (_path?: string): string {
-    return path.resolve(__dirname, _path ? _path : '../templates');
+    //! tsc
+    // const __path = `../${_path ? _path : '../templates'}`;
+
+    //! rollup
+    const __path = _path ? _path : '../templates';
+    return path.resolve(__dirname, __path);
   },
 
   /**
