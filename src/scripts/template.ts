@@ -2,10 +2,9 @@
  * @Description: 命令 > tust template <options>
  * @Author: tourist17846
  * @Date: 2021-07-26 23:47:54
- * @LastEditTime: 2021-07-28 00:19:14
+ * @LastEditTime: 2021-08-02 23:26:29
  */
 import * as fs from 'fs';
-import * as path from 'path';
 import { utils } from '../utils';
 
 const { blue, green, red } = utils.colorCli();
@@ -44,9 +43,9 @@ export const templateCheck = (name: string, showLog: boolean, isReturn?: boolean
 
   if (showLog) {
     if (exist) {
-      green(`存在 [${name}] ...`);
+      green(`[${name}] 可用`);
     } else {
-      red(`不存在 [${name}] ...`);
+      red(`[${name}] 不可用`);
     }
   }
 

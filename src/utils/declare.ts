@@ -15,6 +15,10 @@ export interface ColorCLI {
 // create命令执行返回结果
 export interface BaseCreateResult {
   /**
+   * 是否创建
+   */
+  readonly start: string,
+  /**
    * 项目名称
    */
   readonly name: string,
@@ -25,10 +29,6 @@ export interface BaseCreateResult {
 }
 
 export interface CreateResult extends BaseCreateResult {
-  /**
-   * 是否创建
-   */
-  readonly start: string,
   /**
    * 框架类型
    */

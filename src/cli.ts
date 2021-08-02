@@ -2,21 +2,30 @@
  * @Description: tour-cli命令入口
  * @Author: tourist17846
  * @Date: 2021-03-14 23:35:15
- * @LastEditTime: 2021-08-01 23:55:23
+ * @LastEditTime: 2021-08-02 23:55:27
  */
 
 import * as fs from 'fs';
 import * as commander from 'commander';
-import { utils, questions, CreateResult } from './utils';
-import create from './scripts/create';
-import start from './scripts/start';
-import build from './scripts/build';
-import { templateList, templateCheck } from './scripts/template';
+import {
+  utils,
+  handleCreateQuestionsList,
+  createQuestions,
+  createTemplateQuestions,
+  CreateResult,
+  BaseCreateResult,
+} from './utils';
+import {
+  create,
+  start,
+  build,
+  templateList,
+  templateCheck
+} from './scripts';
 
 
 const { readFileSync } = fs;
 const { green, red } = utils.colorCli();
-const { handleCreateQuestionsList, createQuestions } = questions;
 
 const version: string = JSON.parse(readFileSync(
   utils.getPath('../package.json'),
@@ -30,13 +39,21 @@ commander
   .action(templateName => {
     green('⚡ 开始创建新项目...\n');
 
-    // questions
-    handleCreateQuestionsList<CreateResult>(createQuestions)
+    if (templateName) {
+      handleCreateQuestionsList<BaseCreateResult>(createTemplateQuestions)
       .then(res => {
         res.start
-          ? create(res)
+          ? create<BaseCreateResult>(res)
           : red('\n⛔ 创建已终止');
       })
+    } else {
+      handleCreateQuestionsList<CreateResult>(createQuestions)
+        .then(res => {
+          res.start
+            ? create<CreateResult>(res)
+            : red('\n⛔ 创建已终止');
+        })
+    }
   });
 
 // start
