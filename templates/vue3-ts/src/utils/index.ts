@@ -1,5 +1,1 @@
-import service from './request';
-
-export {
-  service
-};
+export { default as service } from './request';
