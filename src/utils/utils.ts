@@ -2,13 +2,19 @@
  * @Description: 工具方法库
  * @Author: tourist17846
  * @Date: 2021-04-26 23:18:06
- * @LastEditTime: 2021-08-01 23:50:43
+ * @LastEditTime: 2021-08-03 23:48:27
  */
 
 import * as path from 'path';
 import * as chalk from 'chalk';
 import * as childProcess from 'child_process';
-import { CLIVoid, ColorCLI, CreateResult, FrontEndFrameType } from './declare';
+import {
+  CLIVoid,
+  ColorCLI,
+  CreateResult,
+  FrontEndFrameType,
+  CreateQuestionsReturnType
+} from './declare';
 
 
 const { execSync } = childProcess;
@@ -100,15 +106,20 @@ export default {
   /**
    * @name: handleTemplatePath
    * @description: 处理template路径
-   * @param {CreateResult} res
+   * @param {CreateQuestionsReturnType} res
+   * @param {string} templateName
    * @return {string}
    */
-  handleTemplatePath: function (res: CreateResult): string {
-    return this.getPath()
+  handleTemplatePath: function (res: CreateQuestionsReturnType, templateName?: string): string {
+    if (templateName) {
+      return `${this.getPath()}/${templateName}`;
+    } else {
+      return this.getPath()
       + '/'
-      + (res.type === FrontEndFrameType.react
-      ? FrontEndFrameType.react
-      : `${res.type}-${res?.ts ? 'ts' : 'js'}`)
+      + ((res as CreateResult).type === FrontEndFrameType.react
+        ? FrontEndFrameType.react
+        : `${(res as CreateResult).type}-${(res as CreateResult)?.ts ? 'ts' : 'js'}`)
       + '/';
+     }
   },
 }

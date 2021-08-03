@@ -2,9 +2,9 @@
  * @Description: 创建项目
  * @Author: tourist17846
  * @Date: 2021-03-15 20:27:52
- * @LastEditTime: 2021-07-28 00:10:05
+ * @LastEditTime: 2021-08-03 23:44:43
  */
-import { utils, file, CreateResult } from '../utils';
+import { utils, file, BaseCreateResult } from '../utils';
 import npm from './npm';
 
 
@@ -13,12 +13,12 @@ const { green, red, blue } = utils.colorCli();
 /**
  * @name: create
  * @description: create脚本
- * @param {CreateResult} res
+ * @param {T} res
+ * @param {string} templateName
  * @return null
  */
-const create = (res: CreateResult): void => {
-
-  const sourcePath = utils.handleTemplatePath(res); // 获取资源路径
+const create = <T extends BaseCreateResult = BaseCreateResult>(res: T, templateName?: string): void => {
+  const sourcePath = utils.handleTemplatePath(res, templateName); // 获取资源路径
   const currentPath = process.cwd(); // 命令行当前所在路径
 
   green('\n🚀 创建中...');

@@ -3,6 +3,8 @@
  */
 export type CLIVoid = (text: string, isConsole?: boolean) => unknown // colorCli 定义
 export type NPM = (cwd?: string, callBack?: () => void) => void // npm
+export type CreateQuestionsReturnType = BaseCreateResult
+  | CreateResult;
 
 /**
  * 定义接口类型

@@ -2,7 +2,7 @@
  * @Description: tour-cli命令入口
  * @Author: tourist17846
  * @Date: 2021-03-14 23:35:15
- * @LastEditTime: 2021-08-02 23:55:27
+ * @LastEditTime: 2021-08-03 23:39:25
  */
 
 import * as fs from 'fs';
@@ -13,7 +13,7 @@ import {
   createQuestions,
   createTemplateQuestions,
   CreateResult,
-  BaseCreateResult,
+  BaseCreateResult
 } from './utils';
 import {
   create,
@@ -40,15 +40,15 @@ commander
     green('⚡ 开始创建新项目...\n');
 
     if (templateName) {
-      handleCreateQuestionsList<BaseCreateResult>(createTemplateQuestions)
-      .then(res => {
+      handleCreateQuestionsList(createTemplateQuestions)
+      .then((res: BaseCreateResult) => {
         res.start
-          ? create<BaseCreateResult>(res)
+          ? create(res)
           : red('\n⛔ 创建已终止');
       })
     } else {
       handleCreateQuestionsList<CreateResult>(createQuestions)
-        .then(res => {
+        .then((res: CreateResult) => {
           res.start
             ? create<CreateResult>(res)
             : red('\n⛔ 创建已终止');

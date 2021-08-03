@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import utils from './utils';
-import { CreateResult } from './declare';
+import { CreateQuestionsReturnType } from './declare';
 
 
 const { yellow, red } = utils.colorCli();
@@ -11,11 +11,11 @@ export default {
   /**
    * @name: packageJsonModify
    * @description: 修改package.json 文件读写操作
-   * @param {CreateResult} res
+   * @param {CreateQuestionsReturnType} res
    * @param {string} path
    * @return {Promise<boolean>}
    */
-  packageJsonModify: function (res: CreateResult, path: string): Promise<boolean> {
+  packageJsonModify: function (res: CreateQuestionsReturnType, path: string): Promise<boolean> {
     return new Promise(resolve => {
       // 同步读取文件
       const data = fs.readFileSync(path + '/package.json');
