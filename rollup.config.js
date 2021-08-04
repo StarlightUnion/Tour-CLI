@@ -51,7 +51,7 @@ const rollupConfig = [
     ],
   },
   {
-    input: './dist/dts/cli.d.ts',
+    input: './types/cli.d.ts',
     output: [{
       file: './dist/cli.d.ts',
       format: 'es'

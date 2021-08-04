@@ -2,7 +2,7 @@
  * @Description: tour-cli命令入口
  * @Author: tourist17846
  * @Date: 2021-03-14 23:35:15
- * @LastEditTime: 2021-08-03 23:39:25
+ * @LastEditTime: 2021-08-04 23:18:07
  */
 
 import * as fs from 'fs';
@@ -23,6 +23,9 @@ import {
   templateCheck
 } from './scripts';
 
+export * from './utils';
+export * from './scripts';
+
 
 const { readFileSync } = fs;
 const { green, red } = utils.colorCli();
@@ -41,11 +44,11 @@ commander
 
     if (templateName) {
       handleCreateQuestionsList(createTemplateQuestions)
-      .then((res: BaseCreateResult) => {
-        res.start
-          ? create(res)
-          : red('\n⛔ 创建已终止');
-      })
+        .then((res: BaseCreateResult) => {
+          res.start
+            ? create(res, templateName)
+            : red('\n⛔ 创建已终止');
+        })
     } else {
       handleCreateQuestionsList<CreateResult>(createQuestions)
         .then((res: CreateResult) => {

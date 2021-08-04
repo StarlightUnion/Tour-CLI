@@ -2,7 +2,7 @@
  * @Description: 工具方法库
  * @Author: tourist17846
  * @Date: 2021-04-26 23:18:06
- * @LastEditTime: 2021-08-03 23:48:27
+ * @LastEditTime: 2021-08-04 00:18:40
  */
 
 import * as path from 'path';
@@ -111,6 +111,7 @@ export default {
    * @return {string}
    */
   handleTemplatePath: function (res: CreateQuestionsReturnType, templateName?: string): string {
+    console.log(templateName);
     if (templateName) {
       return `${this.getPath()}/${templateName}`;
     } else {

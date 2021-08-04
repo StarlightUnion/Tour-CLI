@@ -113,4 +113,7 @@ typings/
 # dist
 dist
 
+# types
+types
+
 # End of https://www.gitignore.io/api/node,macos,visualstudiocode

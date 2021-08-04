@@ -9,7 +9,7 @@
   "types": "dist/cli.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "rimraf ./dist/",
+    "clean": "rimraf ./dist/ ./types/",
     "build": "npm run clean && rollup -c rollup.config.js",
     "dev": "npm run clean && rollup -c rollup.config.js -w",
     "link": "sudo npm link",
