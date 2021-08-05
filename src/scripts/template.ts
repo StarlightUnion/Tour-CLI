@@ -2,7 +2,7 @@
  * @Description: 命令 > tust template <options>
  * @Author: tourist17846
  * @Date: 2021-07-26 23:47:54
- * @LastEditTime: 2021-08-02 23:26:29
+ * @LastEditTime: 2021-08-05 00:20:24
  */
 import * as fs from 'fs';
 import { utils } from '../utils';
@@ -19,6 +19,7 @@ export const templateList = (isReturn?: boolean): void | string[] => {
   const templatesPath = utils.getPath();
   const templates = fs.readdirSync(templatesPath);
   const templatesText = templates
+    .filter(item => fs.statSync(utils.getPath(`../templates/${item}`)).isDirectory())
     .map(item => `> ${item}\n`)
     .join('');
 
@@ -39,7 +40,9 @@ export const templateList = (isReturn?: boolean): void | string[] => {
 export const templateCheck = (name: string, showLog: boolean, isReturn?: boolean): void | boolean => {
   const templatesPath = utils.getPath();
   const templates = fs.readdirSync(templatesPath);
-  const exist = templates.includes(name);
+  const exist = templates
+    .filter(item => fs.statSync(utils.getPath(`../templates/${item}`)).isDirectory())
+    .includes(name);
 
   if (showLog) {
     if (exist) {

@@ -2,7 +2,7 @@
  * @Description: tour-cli命令入口
  * @Author: tourist17846
  * @Date: 2021-03-14 23:35:15
- * @LastEditTime: 2021-08-04 23:18:07
+ * @LastEditTime: 2021-08-05 00:29:30
  */
 
 import * as fs from 'fs';
@@ -43,12 +43,17 @@ commander
     green('⚡ 开始创建新项目...\n');
 
     if (templateName) {
-      handleCreateQuestionsList(createTemplateQuestions)
-        .then((res: BaseCreateResult) => {
-          res.start
-            ? create(res, templateName)
-            : red('\n⛔ 创建已终止');
-        })
+      // 检查模板名称是否合法
+      if (templateCheck(templateName, false, true)) {
+        handleCreateQuestionsList(createTemplateQuestions)
+          .then((res: BaseCreateResult) => {
+            res.start
+              ? create(res, templateName)
+              : red('\n⛔ 创建已终止');
+          })
+      } else {
+        red(`⛔ [${templateName}]模板不存在...`)
+      }
     } else {
       handleCreateQuestionsList<CreateResult>(createQuestions)
         .then((res: CreateResult) => {
