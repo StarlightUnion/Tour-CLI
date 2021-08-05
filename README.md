@@ -4,7 +4,7 @@
   <a href="https://www.npmjs.com/package/tust-cli"><img src="https://img.shields.io/npm/v/tust-cli.svg?sanitize=true" alt="Version"></a>
   <a href="https://www.npmjs.com/package/tust-cli"><img src="https://img.shields.io/npm/l/tust-cli.svg?sanitize=true" alt="License"></a>
 </p>
-一套DIY的脚手架，支持构建`React`、`Vue3.x`项目。
+一套DIY的脚手架，支持构建React、Vue3.x项目。
 
 目前支持构建的项目模板名称：
 
