@@ -39,7 +39,7 @@ tust template --list
 # 检查模板名称是否可用
 tust template -c <templateName> # 示例：tust template -c vue-ts
 # OR
-tust template -check <templateName>
+tust template --check <templateName>
 ```
 
 ### 2.启动项目
